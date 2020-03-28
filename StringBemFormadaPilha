@@ -1,0 +1,49 @@
+class Pilha():
+    def __init__(self):
+        self.dados = []
+
+    def __len__(self): 
+        return len(self.dados)
+
+    def pilha_vazia(self):
+        if self.__len__() == 0:
+            return 0
+
+    def topo(self):
+        if (self.pilha_vazia()):
+            return "Erro"
+        else:
+            return self.dados[-1]
+
+    def empilhar(self, elementos):
+        return self.dados.append(elementos)
+
+    def desempilhar(self):
+        if not self.pilha_vazia():
+            return self.dados.pop(-1)
+
+pilha = Pilha()
+cont = 0 # percorre toda a lista de entrada , o x tem que ser menor que o len
+texto = list(input(''))
+
+
+while cont < len(texto):
+    if texto[cont] == '(' or texto[cont] == '[' or texto[cont] == '{':
+        pilha.empilhar(texto[cont])
+    elif texto[cont]== ')' or texto[cont]== ']' or texto[cont]== '}':
+        if pilha.__len__() > 0:
+            if texto[cont]== ')'and pilha.topo()=='(':
+                pilha.desempilhar()
+            elif texto[cont]==']'and pilha.topo()=='[':
+                pilha.desempilhar()
+            elif texto[cont]=='}'and pilha.topo()=='{':
+                pilha.desempilhar()
+        else:
+            pilha.empilhar(texto[cont])
+            break
+    cont += 1
+if (pilha.__len__())== 0:
+    print("string bem formada")
+else:
+    print("string mal formada")
+
